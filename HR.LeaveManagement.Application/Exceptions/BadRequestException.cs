@@ -12,15 +12,10 @@ namespace HR.LeaveManagement.Application.Exceptions
 
         public BadRequestException(string message, ValidationResult validationResult) : base(message)
         {
-            ValidationErrores = new();
-
-            foreach(var error in validationResult.Errors)
-            {
-                ValidationErrores.Add(error.ErrorMessage);
-            }
+            ValidationErrores = validationResult.ToDictionary();
         }
 
-        public List<string> ValidationErrores { get; set; }
+        public IDictionary<string, string[]> ValidationErrores { get; set; }
     }
 }
 
